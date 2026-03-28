@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ANTICIPATE ELLA — MNE 201 CBT | FUTA</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg:       #07080d;
+  --surface:  #0e1018;
+  --card:     #13161f;
+  --border:   #1f2335;
+  --gold:     #e8b84b;
+  --gold2:    #f5d080;
+  --gold-dim: #7a5f1e;
+  --teal:     #2dd4bf;
+  --correct:  #34d399;
+  --wrong:    #f87171;
+  --text:     #eef0f6;
+  --muted:    #545c7a;
+  --soft:     #8892aa;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* subtle grid bg */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:
+    linear-gradient(rgba(232,184,75,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(232,184,75,0.025) 1px, transparent 1px);
+  background-size:40px 40px;
+  pointer-events:none;z-index:0;
+}
+
+/* radial glow top */
+body::after{
+  content:'';
+  position:fixed;top:-200px;left:50%;transform:translateX(-50%);
+  width:700px;height:500px;
+  background:radial-gradient(ellipse at center, rgba(232,184,75,0.07) 0%, transparent 70%);
+  pointer-events:none;z-index:0;
+}
+
+.screen{display:none;position:relative;z-index:1;}
+.screen.active{display:flex;}
+
+/* ══════════════════════════════
+   ELLA ANIMATED LOGO
+══════════════════════════════ */
+.ella-wrap{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:0;
+  margin-bottom:0.3rem;
+  line-height:1;
+}
+
+.ella-letter{
+  font-family:'Playfair Display',serif;
+  font-weight:900;
+  font-size:clamp(1.6rem,6vw,3.8rem);
+  display:inline-block;
+  animation:ellaWave 2.8s ease-in-out infinite;
+  background:linear-gradient(180deg, var(--gold2) 0%, var(--gold) 50%, #b8892a 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  letter-spacing:-0.02em;
+  filter:drop-shadow(0 0 20px rgba(232,184,75,0.35));
+}
+
+.ella-letter:nth-child(1){animation-delay:0s;}
+.ella-letter:nth-child(2){animation-delay:0.1s;}
+.ella-letter:nth-child(3){animation-delay:0.2s;}
+.ella-letter:nth-child(4){animation-delay:0.3s;}
+.ella-letter:nth-child(5){animation-delay:0.4s;}
+.ella-letter:nth-child(6){animation-delay:0.5s;}
+.ella-letter:nth-child(7){animation-delay:0.6s;}
+.ella-letter:nth-child(8){animation-delay:0.7s;}
+.ella-letter:nth-child(9){animation-delay:0.8s;}
+.ella-letter:nth-child(10){animation-delay:0.9s;}
+.ella-letter:nth-child(11){animation-delay:1.0s;}
+.ella-letter:nth-child(12){animation-delay:1.1s;}
+.ella-letter:nth-child(13){animation-delay:1.2s;}
+.ella-letter:nth-child(14){animation-delay:1.3s;}
+
+@keyframes ellaWave{
+  0%,100%{transform:translateY(0) scale(1);}
+  20%{transform:translateY(-10px) scale(1.04);}
+  40%{transform:translateY(3px) scale(0.98);}
+  60%{transform:translateY(-4px) scale(1.01);}
+  80%{transform:translateY(1px) scale(1);}
+}
+
+.ella-tagline{
+  font-family:'DM Mono',monospace;
+  font-size:0.6rem;
+  letter-spacing:0.22em;
+  color:var(--gold-dim);
+  text-transform:uppercase;
+  text-align:center;
+  margin-bottom:0.15rem;
+}
+
+.ella-divider{
+  width:100%;max-width:320px;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);
+  margin:0.6rem auto 1rem;
+}
+
+/* ══════════════════════════════
+   HOME
+══════════════════════════════ */
+#home{
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  min-height:100vh;
+  padding:2.5rem 1.2rem 2rem;
+  text-align:center;
+}
+
+.course-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:0.5rem;
+  background:rgba(232,184,75,0.08);
+  border:1px solid rgba(232,184,75,0.2);
+  border-radius:100px;
+  padding:0.35rem 1rem;
+  font-size:0.65rem;
+  font-weight:600;
+  color:var(--gold);
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  margin-bottom:1.5rem;
+}
+
+.course-pill::before{content:'◆';font-size:0.5rem;}
+
+.home-course-name{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1rem,4vw,1.3rem);
+  font-weight:700;
+  color:var(--soft);
+  margin-bottom:0.2rem;
+  letter-spacing:0.01em;
+}
+
+.home-uni{
+  font-size:0.62rem;
+  color:var(--muted);
+  letter-spacing:0.07em;
+  text-transform:uppercase;
+  margin-bottom:1.8rem;
+}
+
+/* stats strip */
+.stats-strip{
+  display:flex;
+  gap:0;
+  border:1px solid var(--border);
+  border-radius:10px;
+  overflow:hidden;
+  width:100%;max-width:400px;
+  margin-bottom:1.8rem;
+}
+
+.stat-block{
+  flex:1;
+  padding:0.9rem 0.5rem;
+  text-align:center;
+  border-right:1px solid var(--border);
+  background:var(--card);
+}
+
+.stat-block:last-child{border-right:none;}
+
+.stat-num{
+  font-family:'DM Mono',monospace;
+  font-size:1.4rem;
+  font-weight:500;
+  color:var(--gold);
+  display:block;
+  line-height:1;
+  margin-bottom:0.25rem;
+}
+
+.stat-lbl{
+  font-size:0.58rem;
+  color:var(--muted);
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+}
+
+/* topic filter */
+.section-label{
+  font-size:0.6rem;
+  color:var(--muted);
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  width:100%;max-width:400px;
+  text-align:left;
+  margin-bottom:0.45rem;
+}
+
+select.topic-sel{
+  width:100%;max-width:400px;
+  background:var(--card);
+  border:1px solid var(--border);
+  color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  font-size:0.78rem;
+  padding:0.7rem 1rem;
+  border-radius:8px;
+  outline:none;
+  cursor:pointer;
+  margin-bottom:1.4rem;
+  appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23545c7a' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 1rem center;
+  padding-right:2.5rem;
+  transition:border-color 0.2s;
+}
+
+select.topic-sel:focus{border-color:var(--gold);}
+
+/* mode grid */
+.mode-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0.65rem;
+  width:100%;max-width:400px;
+  margin-bottom:1.5rem;
+}
+
+.mode-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:1rem 0.9rem;
+  cursor:pointer;
+  transition:all 0.2s;
+  text-align:left;
+  position:relative;
+  overflow:hidden;
+}
+
+.mode-card::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--gold),var(--gold2));
+  opacity:0;
+  transition:opacity 0.2s;
+}
+
+.mode-card:hover{border-color:rgba(232,184,75,0.3);background:#161924;}
+.mode-card:hover::before{opacity:1;}
+
+.mode-card.selected{
+  border-color:rgba(232,184,75,0.5);
+  background:rgba(232,184,75,0.05);
+}
+
+.mode-card.selected::before{opacity:1;}
+
+.mode-icon{font-size:1.4rem;display:block;margin-bottom:0.4rem;}
+.mode-name{font-size:0.8rem;font-weight:600;color:var(--text);margin-bottom:0.15rem;}
+.mode-desc{font-size:0.62rem;color:var(--muted);}
+
+/* start button */
+.start-btn{
+  width:100%;max-width:400px;
+  background:linear-gradient(135deg,var(--gold) 0%,var(--gold2) 50%,var(--gold) 100%);
+  background-size:200% 200%;
+  color:#0a0a0a;
+  border:none;
+  padding:1rem;
+  border-radius:10px;
+  font-family:'DM Sans',sans-serif;
+  font-weight:700;
+  font-size:0.95rem;
+  letter-spacing:0.04em;
+  cursor:pointer;
+  transition:all 0.3s;
+  animation:shimmer 3s infinite linear;
+}
+
+@keyframes shimmer{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+.start-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(232,184,75,0.25);}
+
+.home-footer{
+  font-size:0.58rem;
+  color:var(--muted);
+  margin-top:1.5rem;
+  letter-spacing:0.06em;
+  display:flex;
+  align-items:center;
+  gap:0.5rem;
+}
+
+.home-footer::before,
+.home-footer::after{content:'—';}
+
+/* ══════════════════════════════
+   QUIZ SCREEN
+══════════════════════════════ */
+#quiz{flex-direction:column;min-height:100vh;}
+
+/* top header bar */
+.qhdr{
+  background:var(--surface);
+  border-bottom:1px solid var(--border);
+  padding:0 1.1rem;
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  height:56px;
+  position:sticky;top:0;z-index:10;
+}
+
+.qhdr-left{display:flex;flex-direction:column;gap:1px;}
+.qhdr-label{font-size:0.55rem;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;}
+.qhdr-val{font-family:'DM Mono',monospace;font-size:0.95rem;font-weight:500;color:var(--gold);}
+
+/* ELLA mini logo in header */
+.ella-mini{
+  display:flex;
+  align-items:center;
+  gap:1px;
+}
+
+.ella-mini span{
+  font-family:'Playfair Display',serif;
+  font-weight:900;
+  font-size:0.72rem;
+  background:linear-gradient(180deg,var(--gold2),var(--gold));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:ellaWave 2.8s ease-in-out infinite;
+}
+
+.ella-mini span:nth-child(1){animation-delay:0s;}
+.ella-mini span:nth-child(2){animation-delay:0.08s;}
+.ella-mini span:nth-child(3){animation-delay:0.16s;}
+.ella-mini span:nth-child(4){animation-delay:0.24s;}
+.ella-mini span:nth-child(5){animation-delay:0.32s;}
+.ella-mini span:nth-child(6){animation-delay:0.40s;}
+.ella-mini span:nth-child(7){animation-delay:0.48s;}
+.ella-mini span:nth-child(8){animation-delay:0.56s;}
+.ella-mini span:nth-child(9){animation-delay:0.64s;}
+.ella-mini span:nth-child(10){animation-delay:0.72s;}
+.ella-mini span:nth-child(11){animation-delay:0.80s;}
+.ella-mini span:nth-child(12){animation-delay:0.88s;}
+.ella-mini span:nth-child(13){animation-delay:0.96s;}
+.ella-mini span:nth-child(14){animation-delay:1.04s;}
+
+.qhdr-right{display:flex;flex-direction:column;align-items:flex-end;gap:1px;}
+
+/* progress */
+.prog-wrap{height:2px;background:var(--border);}
+.prog-fill{
+  height:100%;
+  background:linear-gradient(90deg,var(--gold),var(--gold2),var(--teal));
+  transition:width 0.4s ease;
+}
+
+/* timer */
+.timer-badge{
+  display:inline-flex;align-items:center;gap:0.3rem;
+  background:rgba(45,212,191,0.08);
+  border:1px solid rgba(45,212,191,0.2);
+  border-radius:100px;
+  padding:0.25rem 0.7rem;
+  font-family:'DM Mono',monospace;
+  font-size:0.72rem;
+  color:var(--teal);
+  letter-spacing:0.05em;
+}
+
+.timer-badge.urgent{
+  background:rgba(248,113,113,0.08);
+  border-color:rgba(248,113,113,0.3);
+  color:var(--wrong);
+  animation:pulse 0.8s infinite;
+}
+
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+
+/* quiz body */
+.qbody{
+  flex:1;
+  padding:1.5rem 1.1rem;
+  max-width:660px;
+  width:100%;
+  margin:0 auto;
+}
+
+/* topic chip */
+.q-chip{
+  display:inline-flex;align-items:center;gap:0.35rem;
+  background:rgba(232,184,75,0.07);
+  border:1px solid rgba(232,184,75,0.15);
+  border-radius:100px;
+  padding:0.22rem 0.7rem;
+  font-size:0.58rem;
+  color:var(--gold);
+  letter-spacing:0.07em;
+  text-transform:uppercase;
+  font-weight:600;
+  margin-bottom:1rem;
+}
+
+.q-chip::before{content:'◆';font-size:0.4rem;}
+
+/* question text */
+.q-text{
+  font-family:'Playfair Display',serif;
+  font-size:1.18rem;
+  line-height:1.7;
+  color:var(--text);
+  margin-bottom:1.6rem;
+  font-weight:700;
+}
+
+/* options */
+.opts{display:flex;flex-direction:column;gap:0.55rem;margin-bottom:1.4rem;}
+
+.opt{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:0.85rem 1rem;
+  display:flex;align-items:center;gap:0.85rem;
+  cursor:pointer;
+  transition:all 0.18s;
+  font-size:0.82rem;
+  color:var(--text);
+  text-align:left;
+  font-family:'DM Sans',sans-serif;
+  line-height:1.45;
+}
+
+.opt:hover:not(:disabled){
+  border-color:rgba(232,184,75,0.3);
+  background:#161924;
+  transform:translateX(3px);
+}
+
+.opt-lbl{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:26px;height:26px;
+  border-radius:50%;
+  border:1.5px solid var(--muted);
+  font-size:0.65rem;font-weight:600;
+  flex-shrink:0;
+  font-family:'DM Mono',monospace;
+  transition:all 0.18s;
+  color:var(--muted);
+}
+
+.opt.correct{
+  border-color:var(--correct);
+  background:rgba(52,211,153,0.07);
+  color:var(--correct);
+}
+
+.opt.correct .opt-lbl{
+  border-color:var(--correct);color:var(--correct);
+  background:rgba(52,211,153,0.15);
+}
+
+.opt.wrong{
+  border-color:var(--wrong);
+  background:rgba(248,113,113,0.07);
+  color:var(--wrong);
+}
+
+.opt.wrong .opt-lbl{
+  border-color:var(--wrong);color:var(--wrong);
+  background:rgba(248,113,113,0.15);
+}
+
+.opt:disabled{cursor:default;}
+
+/* feedback */
+.feedback{
+  border-radius:8px;
+  padding:0.75rem 1rem;
+  font-size:0.75rem;
+  font-weight:500;
+  margin-bottom:1.2rem;
+  display:none;
+  line-height:1.5;
+}
+
+.feedback.show{display:block;}
+.feedback.fb-correct{background:rgba(52,211,153,0.07);border:1px solid rgba(52,211,153,0.25);color:var(--correct);}
+.feedback.fb-wrong{background:rgba(248,113,113,0.07);border:1px solid rgba(248,113,113,0.25);color:var(--wrong);}
+.feedback.fb-skip{background:rgba(84,92,122,0.1);border:1px solid var(--border);color:var(--soft);}
+
+/* nav */
+.nav-row{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  gap:0.6rem;
+  align-items:center;
+  padding-bottom:2.5rem;
+}
+
+.nav-btn{
+  background:var(--card);
+  border:1px solid var(--border);
+  color:var(--soft);
+  padding:0.75rem 1rem;
+  border-radius:8px;
+  font-family:'DM Sans',sans-serif;
+  font-size:0.75rem;
+  font-weight:600;
+  cursor:pointer;
+  transition:all 0.18s;
+}
+
+.nav-btn:hover{border-color:var(--gold-dim);color:var(--gold);}
+.nav-btn:disabled{opacity:0.2;cursor:default;}
+
+.nav-skip{
+  background:transparent;
+  border:1px solid var(--border);
+  color:var(--muted);
+  padding:0.55rem 0.9rem;
+  border-radius:100px;
+  font-family:'DM Mono',monospace;
+  font-size:0.62rem;
+  cursor:pointer;
+  transition:all 0.18s;
+  letter-spacing:0.04em;
+}
+
+.nav-skip:hover{border-color:var(--muted);color:var(--soft);}
+
+.nav-btn.primary{
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:#0a0a0a;
+  border-color:transparent;
+  font-weight:700;
+}
+
+.nav-btn.primary:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(232,184,75,0.2);}
+
+/* ══════════════════════════════
+   RESULTS SCREEN
+══════════════════════════════ */
+#results{
+  flex-direction:column;
+  align-items:center;
+  min-height:100vh;
+  padding:2rem 1.2rem;
+  text-align:center;
+}
+
+.result-ella{margin-bottom:0.3rem;}
+
+.score-ring{
+  width:100px;height:100px;
+  border-radius:50%;
+  border:2px solid rgba(232,184,75,0.3);
+  background:radial-gradient(circle,rgba(232,184,75,0.08),transparent);
+  display:flex;align-items:center;justify-content:center;
+  font-size:2.8rem;
+  margin:0.8rem auto 0.8rem;
+  box-shadow:0 0 40px rgba(232,184,75,0.1);
+}
+
+.score-pct{
+  font-family:'Playfair Display',serif;
+  font-size:3.2rem;
+  font-weight:900;
+  line-height:1;
+  background:linear-gradient(135deg,var(--gold2),var(--gold));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+
+.score-label{
+  font-size:0.88rem;
+  color:var(--soft);
+  margin-bottom:1.5rem;
+  font-style:italic;
+}
+
+.result-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:0.6rem;
+  width:100%;max-width:360px;
+  margin:0 auto 1.8rem;
+}
+
+.rg{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:0.8rem 0.4rem;
+  text-align:center;
+}
+
+.rg-num{
+  font-family:'DM Mono',monospace;
+  font-size:1.6rem;
+  font-weight:500;
+  display:block;
+  line-height:1;
+  margin-bottom:0.25rem;
+}
+
+.rg-lbl{font-size:0.58rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;}
+.gc{color:var(--correct);} .gw{color:var(--wrong);} .gs{color:var(--muted);}
+
+/* review */
+.review-wrap{width:100%;max-width:580px;text-align:left;margin-bottom:1.8rem;}
+
+.review-hdr{
+  font-size:0.6rem;
+  color:var(--muted);
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  margin-bottom:0.8rem;
+  display:flex;align-items:center;gap:0.6rem;
+}
+
+.review-hdr::after{content:'';flex:1;height:1px;background:var(--border);}
+
+.rev-item{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:0.9rem 1rem;
+  margin-bottom:0.5rem;
+  font-size:0.72rem;
+}
+
+.rev-item.ri-wrong{border-left:3px solid var(--wrong);}
+.rev-item.ri-skip{border-left:3px solid var(--muted);}
+.rev-item.ri-correct{border-left:3px solid var(--correct);}
+
+.rev-q{
+  font-family:'Playfair Display',serif;
+  font-size:0.85rem;
+  color:var(--soft);
+  margin-bottom:0.4rem;
+  line-height:1.5;
+}
+
+.rev-ans{color:var(--correct);margin-bottom:0.2rem;}
+.rev-yours{color:var(--wrong);}
+
+/* action buttons */
+.act-row{display:flex;gap:0.7rem;flex-wrap:wrap;justify-content:center;}
+
+.act-btn{
+  padding:0.8rem 1.8rem;
+  border-radius:8px;
+  font-family:'DM Sans',sans-serif;
+  font-size:0.78rem;font-weight:600;
+  cursor:pointer;
+  transition:all 0.2s;
+  border:1px solid var(--border);
+  background:var(--card);
+  color:var(--soft);
+}
+
+.act-btn.primary{
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:#0a0a0a;
+  border-color:transparent;
+}
+
+.act-btn:hover{transform:translateY(-1px);}
+.act-btn.primary:hover{box-shadow:0 6px 24px rgba(232,184,75,0.25);}
+
+.result-footer{
+  font-size:0.58rem;color:var(--muted);
+  margin-top:1.5rem;letter-spacing:0.07em;
+}
+
+/* scrollbar */
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px;}
+</style>
+</head>
+<body>
+
+<!-- ══════ HOME ══════ -->
+<div id="home" class="screen active">
+
+  <!-- ANTICIPATE ELLA animated logo -->
+  <div class="ella-wrap">
+    <span class="ella-letter">A</span>
+    <span class="ella-letter">N</span>
+    <span class="ella-letter">T</span>
+    <span class="ella-letter">I</span>
+    <span class="ella-letter">C</span>
+    <span class="ella-letter">I</span>
+    <span class="ella-letter">P</span>
+    <span class="ella-letter">A</span>
+    <span class="ella-letter">T</span>
+    <span class="ella-letter">E</span>
+    <span class="ella-letter" style="margin-left:0.4em;">E</span>
+    <span class="ella-letter">L</span>
+    <span class="ella-letter">L</span>
+    <span class="ella-letter">A</span>
+  </div>
+  <div class="ella-tagline">Engineering Learning Lab App</div>
+  <div class="ella-divider"></div>
+
+  <div class="course-pill">MNE 201 · Introduction to Engineering</div>
+  <div class="home-course-name">Federal University of Technology, Akure</div>
+  <div class="home-uni">School of Infrastructural Mineral & Material Engineering · 200L</div>
+
+  <!-- stats -->
+  <div class="stats-strip">
+    <div class="stat-block">
+      <span class="stat-num" id="total-count">215</span>
+      <span class="stat-lbl">Questions</span>
+    </div>
+    <div class="stat-block">
+      <span class="stat-num">11</span>
+      <span class="stat-lbl">Topics</span>
+    </div>
+    <div class="stat-block">
+      <span class="stat-num">60s</span>
+      <span class="stat-lbl">Per Q</span>
+    </div>
+    <div class="stat-block">
+      <span class="stat-num">4</span>
+      <span class="stat-lbl">Modes</span>
+    </div>
+  </div>
+
+  <!-- topic filter -->
+  <div class="section-label">Filter by Topic</div>
+  <select class="topic-sel" id="topic-filter">
+    <option value="all">📚 All Topics (Full Exam)</option>
+    <option value="History of Science">🔬 History of Science</option>
+    <option value="History of Engineering">⚙️ History of Engineering</option>
+    <option value="Industrial Revolutions">🏭 Industrial Revolutions</option>
+    <option value="Ages of Man">🪨 Ages of Man</option>
+    <option value="Ancient Civilizations">🏛️ Ancient Civilizations</option>
+    <option value="Nigerian Engineering">🇳🇬 Nigerian Engineering</option>
+    <option value="Branches of Engineering">🌿 Branches of Engineering</option>
+    <option value="Engineering Professions">👷 Engineering Professions</option>
+    <option value="Definitions">📖 Definitions</option>
+    <option value="Risk Management">⚠️ Risk Management</option>
+    <option value="Engineering Ethics">⚖️ Engineering Ethics</option>
+  </select>
+
+  <!-- modes -->
+  <div class="section-label">Select Mode</div>
+  <div class="mode-grid">
+    <div class="mode-card selected" onclick="selectMode('exam')" id="mode-exam">
+      <span class="mode-icon">📝</span>
+      <div class="mode-name">Exam Mode</div>
+      <div class="mode-desc">All Qs · 60s timer</div>
+    </div>
+    <div class="mode-card" onclick="selectMode('practice')" id="mode-practice">
+      <span class="mode-icon">🧠</span>
+      <div class="mode-name">Practice</div>
+      <div class="mode-desc">All Qs · No timer</div>
+    </div>
+    <div class="mode-card" onclick="selectMode('quick')" id="mode-quick">
+      <span class="mode-icon">⚡</span>
+      <div class="mode-name">Quick Fire</div>
+      <div class="mode-desc">40 Random · Timed</div>
+    </div>
+    <div class="mode-card" onclick="selectMode('review')" id="mode-review">
+      <span class="mode-icon">🔍</span>
+      <div class="mode-name">Review</div>
+      <div class="mode-desc">Answers shown instantly</div>
+    </div>
+  </div>
+
+  <button class="start-btn" onclick="startQuiz()">▶ &nbsp; Start Session</button>
+
+  <div class="home-footer">CVE/25/9214 · SIMME · FUTA · Powered by ANTICIPATE ELLA</div>
+</div>
+
+<!-- ══════ QUIZ ══════ -->
+<div id="quiz" class="screen">
+  <div class="qhdr">
+    <div class="qhdr-left">
+      <span class="qhdr-label">Question</span>
+      <span class="qhdr-val" id="q-counter">1 / 215</span>
+    </div>
+
+    <!-- ANTICIPATE ELLA mini header -->
+    <div class="ella-mini">
+      <span>A</span><span>N</span><span>T</span><span>I</span><span>C</span><span>I</span><span>P</span><span>A</span><span>T</span><span>E</span>
+      <span style="margin-left:0.25em;">E</span><span>L</span><span>L</span><span>A</span>
+    </div>
+
+    <div class="qhdr-right">
+      <span class="qhdr-label">Score</span>
+      <span class="qhdr-val" id="score-live" style="color:var(--correct);">0</span>
+    </div>
+  </div>
+  <div class="prog-wrap"><div class="prog-fill" id="prog-bar" style="width:0%"></div></div>
+
+  <div class="qbody">
+    <!-- timer + topic row -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:0.5rem;">
+      <div class="q-chip" id="q-topic">TOPIC</div>
+      <div class="timer-badge" id="timer-badge">1:00</div>
+    </div>
+
+    <div class="q-text" id="q-text">Loading…</div>
+    <div class="opts" id="opts"></div>
+    <div class="feedback" id="feedback"></div>
+
+    <div class="nav-row">
+      <button class="nav-btn" id="prev-btn" onclick="navigate(-1)">← Prev</button>
+      <button class="nav-skip" id="skip-btn" onclick="skipQ()">Skip</button>
+      <button class="nav-btn primary" id="next-btn" onclick="navigate(1)">Next →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ RESULTS ══════ -->
+<div id="results" class="screen">
+  <!-- ANTICIPATE ELLA in results -->
+  <div class="result-ella">
+    <div class="ella-wrap" style="margin-bottom:0.1rem;">
+      <span class="ella-letter" style="font-size:clamp(1rem,4vw,1.8rem);">A</span>
+      <span class="ella-letter" style="font-size:clamp(1rem,4vw,1.8rem);">N</span>
+      <span class="ella-letter" style="font-size:clamp(1rem,4vw,1.8rem);">T</span>
+      <span class="ella-letter" style="font-size:clamp(1rem,4vw,1.8rem);">I</span>
+      <span class="ella-letter" style="font-size:clamp(1rem,4vw,1.8rem);">C</span>
+      <span class="ella-letter" style="font-size:clamp(1rem,4vw,1.8rem);">I</span>
+      <span class="ella-letter" style="font-size:clamp(1rem,4vw,1.8rem);">P</span>
+      <span class="ella-letter" style="font-size:clamp(1rem,4vw,1.8rem);">A</span>
+      <span class="ella-letter" style="font-size:clamp(1rem,4vw,1.8rem);">T</span>
+      <span class="ella-letter" style="font-size:clamp(1rem,4vw,1.8rem);">E</span>
+      <span class="ella-letter" style="font-size:clamp(1rem,4vw,1.8rem);margin-left:0.3em;">E</span>
+      <span class="ella-letter" style="font-size:clamp(1rem,4vw,1.8rem);">L</span>
+      <span class="ella-letter" style="font-size:clamp(1rem,4vw,1.8rem);">L</span>
+      <span class="ella-letter" style="font-size:clamp(1rem,4vw,1.8rem);">A</span>
+    </div>
+    <div class="ella-tagline" style="margin-bottom:0;">Session Complete</div>
+  </div>
+
+  <div class="score-ring" id="result-emoji">🏆</div>
+  <div class="score-pct" id="result-score">0%</div>
+  <div class="score-label" id="result-label">Calculating…</div>
+
+  <div class="result-grid">
+    <div class="rg"><span class="rg-num gc" id="r-correct">0</span><span class="rg-lbl">Correct</span></div>
+    <div class="rg"><span class="rg-num gw" id="r-wrong">0</span><span class="rg-lbl">Wrong</span></div>
+    <div class="rg"><span class="rg-num gs" id="r-skip">0</span><span class="rg-lbl">Skipped</span></div>
+  </div>
+
+  <div class="review-wrap">
+    <div class="review-hdr">Incorrect & Skipped</div>
+    <div id="review-list"></div>
+  </div>
+
+  <div class="act-row">
+    <button class="act-btn primary" onclick="restartQuiz()">↺ Try Again</button>
+    <button class="act-btn" onclick="goHome()">⌂ Home</button>
+  </div>
+
+  <div class="result-footer">ANTICIPATE ELLA · LMD Grafix · MNE 201 · FUTA 200L · CVE/25/9214</div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════
+// QUESTION BANK — 215 Questions
+// ══════════════════════════════════════════════════════
+const BANK = [
+  // HISTORY OF SCIENCE
+  {q:"The social and human sciences emulate the natural sciences in the use of which scientific method?",opts:["Empirical method","Analytical method","Statistical method","Deductive method"],ans:0,topic:"History of Science"},
+  {q:"Research in the basic sciences leads through which two stages in engineering?",opts:["Theory and Practice","Applied Research and Development","Design and Testing","Innovation and Production"],ans:1,topic:"History of Science"},
+  {q:"The word 'Science' is derived from which Latin word?",opts:["Ingenium","Civitas","Scientia","Factum"],ans:2,topic:"History of Science"},
+  {q:"Which best defines 'Science'?",opts:["The use of tools for practical ends","A systematic approach to observing phenomena, developing hypotheses, experimentation and theory","The accumulation of technical skills","Application of mathematical principles"],ans:1,topic:"History of Science"},
+  {q:"Who gave the law of planetary motion?",opts:["Newton","Galileo","Kepler","Copernicus"],ans:2,topic:"History of Science"},
+  {q:"Who gave the laws of motion?",opts:["Kepler","Galileo","Einstein","Newton"],ans:3,topic:"History of Science"},
+  {q:"In what year did Galileo discover Jupiter's moon using a telescope?",opts:["1599","1625","1618","1609"],ans:3,topic:"History of Science"},
+  {q:"Who created Logarithms and the Slide Rule?",opts:["Leibnitz","Charles Babbage","Pascal","John Napier"],ans:3,topic:"History of Science"},
+  {q:"In what year did Leibnitz invent the mechanical computer?",opts:["1642","1823","1673","1796"],ans:2,topic:"History of Science"},
+  {q:"Who gave the foundation of electrodynamics?",opts:["Joseph Henry","Michael Faraday","Alessandro Volta","Andre Marie Ampere"],ans:3,topic:"History of Science"},
+  {q:"Who discovered electromagnetic induction?",opts:["Ampere","Michael Faraday","Joseph Henry","Gauss"],ans:1,topic:"History of Science"},
+  {q:"In what year did Michael Faraday discover electromagnetic induction?",opts:["1820","1833","1796","1831"],ans:3,topic:"History of Science"},
+  {q:"Who discovered inductance and constructed the electric motor?",opts:["Michael Faraday","Andre Marie Ampere","Joseph Henry","Alessandro Volta"],ans:2,topic:"History of Science"},
+  {q:"Gauss and Weber discovered the telegraph apparatus and morse code in which year?",opts:["1820","1840","1833","1850"],ans:2,topic:"History of Science"},
+  {q:"Alessandro Antonio Volta created the electric battery in which year?",opts:["1820","1831","1673","1796"],ans:3,topic:"History of Science"},
+  {q:"Civilization brought miracles into science in which centuries?",opts:["1st, 2nd, 3rd","4th, 5th, 6th","3rd, 4th, 5th","6th, 7th, 8th"],ans:2,topic:"History of Science"},
+  {q:"Which scientist used a telescope to discover one of Jupiter's moons?",opts:["Newton","Kepler","Copernicus","Galileo"],ans:3,topic:"History of Science"},
+  {q:"Who invented the mechanical computer in 1673?",opts:["John Napier","Charles Babbage","Pascal","Leibnitz"],ans:3,topic:"History of Science"},
+  {q:"What did Charles Babbage create in 1823?",opts:["The electric battery","The first automatic machine and idea of modern computer","The telegraph","Electromagnetic induction"],ans:1,topic:"History of Science"},
+  {q:"What two things did Gauss and Weber discover together in 1833?",opts:["Inductance and Electric motor","Electromagnetic induction and battery","Telegraph apparatus and Morse code","Logarithms and slide rule"],ans:2,topic:"History of Science"},
+
+  // HISTORY OF ENGINEERING
+  {q:"The word 'engine' derives from the Latin 'igneium' meaning?",opts:["Inner fire","Mechanical force","Creative ability","Innate quality, particularly of mental power"],ans:3,topic:"History of Engineering"},
+  {q:"Engineering was first used in the _____ for a person who operated a military engine.",opts:["1200s","1400s","1500s","1300s"],ans:3,topic:"History of Engineering"},
+  {q:"In 1325 AD, an engineer was defined as?",opts:["A builder of roads","A maker of weapons","A designer of ships","A constructor of military engines"],ans:3,topic:"History of Engineering"},
+  {q:"The origin of the word 'Engineering' came from humans applying themselves to?",opts:["Scientific observations","Natural discoveries","Artistic creations","Skillful inventions"],ans:3,topic:"History of Engineering"},
+  {q:"An engineer applies which two types of knowledge to designing and building?",opts:["Mathematical and Physical","Logical and Practical","Chemical and Structural","Scientific and Technical"],ans:3,topic:"History of Engineering"},
+  {q:"The earliest recorded civil engineer was?",opts:["Rameses","Tutankhamun","Nefertiti","Imhotep"],ans:3,topic:"History of Engineering"},
+  {q:"Imhotep was one of whose officials?",opts:["King Rameses's","Pharaoh Khufu's","King Menes's","Pharaoh Djoser's"],ans:3,topic:"History of Engineering"},
+  {q:"Who was the first person to use columns in architecture?",opts:["Archimedes","Vitruvius","Heron","Imhotep"],ans:3,topic:"History of Engineering"},
+  {q:"The Step Pyramid was built at which location in Egypt?",opts:["Luxor","Giza","Alexandria","Saqqara"],ans:3,topic:"History of Engineering"},
+  {q:"The Step Pyramid of Djoser was built in approximately which year?",opts:["3000–2900 BC","2200–2100 BC","1900–1800 BC","2630–2611 BC"],ans:3,topic:"History of Engineering"},
+  {q:"Who designed and built the Step Pyramid of Djoser?",opts:["Rameses","Khufu","Thutmose","Imhotep"],ans:3,topic:"History of Engineering"},
+  {q:"Human beings are partly defined as?",opts:["Fire makers and users","Social beings and creators","Language users and thinkers","Tool designers and users"],ans:3,topic:"History of Engineering"},
+  {q:"The history of engineering as a profession began with tool and weapon making over how many years ago?",opts:["50,000","100,000","200,000","150,000"],ans:3,topic:"History of Engineering"},
+  {q:"Who designed the first two-wheel vehicle (bicycle)?",opts:["James Watt","Karl Drais","Leonardo da Vinci","Divisine"],ans:3,topic:"History of Engineering"},
+  {q:"In what year was the first bicycle designed?",opts:["1782","1817","1490","1816"],ans:3,topic:"History of Engineering"},
+  {q:"Engineering is best described as?",opts:["A branch of mathematics","A form of art","The study of nature","The application of science"],ans:3,topic:"History of Engineering"},
+  {q:"Imhotep was best known for designing which famous structure?",opts:["The Great Pyramid of Giza","The Sphinx","The Colosseum","The Step Pyramid of Djoser"],ans:3,topic:"History of Engineering"},
+  {q:"In which century was 'engineering' first used to describe military engine operators?",opts:["12th century","15th century","11th century","14th century"],ans:3,topic:"History of Engineering"},
+  {q:"The earliest recorded civil engineer served which Egyptian Pharaoh?",opts:["Rameses II","Khufu","Tutankhamun","Djoser"],ans:3,topic:"History of Engineering"},
+  {q:"Imhotep achieved which architectural first?",opts:["Built the first dome","First use of columns in architecture","Built the first bridge","First use of iron in construction"],ans:1,topic:"History of Engineering"},
+  {q:"Before becoming a broad profession, engineering was specifically associated with?",opts:["Building roads","Agriculture","Medical practice","Military engines"],ans:3,topic:"History of Engineering"},
+  {q:"The bicycle designed by Divisine in 1816 was notable for being the first?",opts:["Motorized vehicle","Steam-powered vehicle","Two-wheel vehicle","Four-wheel vehicle"],ans:2,topic:"History of Engineering"},
+  {q:"The Latin root 'igneium' from which 'engine' derives refers to?",opts:["Physical strength","Artistic ability","Military prowess","Innate mental power"],ans:3,topic:"History of Engineering"},
+  {q:"Engineering as a profession is described as having begun how many years ago?",opts:["50,000","200,000","300,000","150,000"],ans:3,topic:"History of Engineering"},
+  {q:"Which Egyptian engineer is credited as the world's first recorded civil engineer?",opts:["Khufu","Rameses","Nefertiti","Imhotep"],ans:3,topic:"History of Engineering"},
+
+  // INDUSTRIAL REVOLUTIONS
+  {q:"The first industrial revolution focused on which industry?",opts:["Steel","Railway","Oil","Textile"],ans:3,topic:"Industrial Revolutions"},
+  {q:"The first industrial revolution took place from which years?",opts:["1800–1900","1700–1800","1600–1700","1750–1850"],ans:3,topic:"Industrial Revolutions"},
+  {q:"The second industrial revolution focused on Steam and Railway from?",opts:["1800–1850","1900–1950","1750–1800","1850–1900"],ans:3,topic:"Industrial Revolutions"},
+  {q:"The 3rd industrial revolution focused on Steel, Electricity and heavy engineering from?",opts:["1800–1850","1900–1950","1850–1900","1875–1925"],ans:3,topic:"Industrial Revolutions"},
+  {q:"The 4th industrial revolution focused on Oil, Automobile and mass production from?",opts:["1850–1900","1925–1975","1875–1925","1900–1950"],ans:3,topic:"Industrial Revolutions"},
+  {q:"The 5th industrial revolution was based on Information, Communication and the post-war boom in?",opts:["1925","1940","1960","1950"],ans:3,topic:"Industrial Revolutions"},
+  {q:"The waves of innovation are also known as Kondratiev waves, K-waves, long waves, super cycles or?",opts:["Innovation cycles","Technology waves","Progress cycles","Surges"],ans:3,topic:"Industrial Revolutions"},
+  {q:"Which industrial revolution introduced mass production?",opts:["1st","2nd","3rd","4th"],ans:3,topic:"Industrial Revolutions"},
+  {q:"Which industrial revolution was centered on textile manufacturing?",opts:["2nd","3rd","4th","1st"],ans:3,topic:"Industrial Revolutions"},
+  {q:"Which industrial revolution introduced railway transport?",opts:["1st","3rd","4th","2nd"],ans:3,topic:"Industrial Revolutions"},
+  {q:"The Kondratiev waves concept relates to which pattern?",opts:["Military advancement cycles","Biological evolution cycles","Cultural revolution cycles","Waves of innovation and industrial development"],ans:3,topic:"Industrial Revolutions"},
+  {q:"In which industrial revolution did electricity first become a major industrial focus?",opts:["1st","2nd","4th","3rd"],ans:3,topic:"Industrial Revolutions"},
+  {q:"The 5th industrial revolution occurred after which major global event?",opts:["The Great Depression","World War I","The Cold War","World War II post-war boom"],ans:3,topic:"Industrial Revolutions"},
+  {q:"Heavy engineering was a key feature of which industrial revolution?",opts:["1st","2nd","4th","3rd"],ans:3,topic:"Industrial Revolutions"},
+  {q:"Which revolution era introduced the automobile industry?",opts:["1st (1750–1850)","2nd (1850–1900)","3rd (1875–1925)","4th (1900–1950)"],ans:3,topic:"Industrial Revolutions"},
+  {q:"The 5th industrial revolution placed primary focus on which two sectors?",opts:["Steel and Oil","Textile and Railway","Automobile and Heavy engineering","Information and Communication"],ans:3,topic:"Industrial Revolutions"},
+  {q:"How many major industrial revolutions are described in MNE 201?",opts:["3","4","6","5"],ans:3,topic:"Industrial Revolutions"},
+  {q:"Another name for 'Kondratiev waves' is?",opts:["Innovation pulses","Economic shocks","Technological bursts","Super cycles"],ans:3,topic:"Industrial Revolutions"},
+
+  // AGES OF MAN
+  {q:"The Stone Age is the earliest age of man. What material did man use for defense and construction?",opts:["Bronze","Iron","Copper","Rocks/Stone"],ans:3,topic:"Ages of Man"},
+  {q:"The Stone Age did not end because we ran out of which material?",opts:["Iron","Bronze","Copper","Stones"],ans:3,topic:"Ages of Man"},
+  {q:"What was the first material used along with wood by man?",opts:["Bronze","Iron","Copper","Stone"],ans:3,topic:"Ages of Man"},
+  {q:"What records show that early man engaged in agriculture, shepherding and hunting?",opts:["Scientific and Archaeological records","Geological and Fossil records","Anthropological records","Historical records and Bible records"],ans:3,topic:"Ages of Man"},
+  {q:"The bow drill was used not only for drilling and boring but also for making?",opts:["Arrows","Holes","Rope","Fire"],ans:3,topic:"Ages of Man"},
+  {q:"The Bronze Age was the period when bronze was used in making all weapons, tools and?",opts:["Buildings","Ships","Roads","Domestic utilities"],ans:3,topic:"Ages of Man"},
+  {q:"Bronze is a mixture of which two metals?",opts:["Iron and Copper","Zinc and Copper","Tin and Iron","Tin and Copper"],ans:3,topic:"Ages of Man"},
+  {q:"Which metal was discovered, mined, melted and used before bronze?",opts:["Iron","Tin","Lead","Copper"],ans:3,topic:"Ages of Man"},
+  {q:"Copper was smelted in which ancient civilization before 3000 BC?",opts:["Egypt","Greece","Persia","Mesopotamia"],ans:3,topic:"Ages of Man"},
+  {q:"Both copper and bronze were commonly hardened by which process?",opts:["Heat treatment","Quenching","Annealing","Cold working"],ans:3,topic:"Ages of Man"},
+  {q:"The chariots and carts were developed during which age?",opts:["Stone Age","Iron Age","Copper Age","Bronze Age"],ans:3,topic:"Ages of Man"},
+  {q:"Welding of iron by hammering in the forge was discovered in which century BC?",opts:["5th","9th","3rd","7th"],ans:3,topic:"Ages of Man"},
+  {q:"What age preceded the Bronze Age in terms of dominant material?",opts:["Iron Age","Silver Age","Tin Age","Stone Age / Copper Age"],ans:3,topic:"Ages of Man"},
+  {q:"The bow drill was a versatile tool. Apart from drilling, it was used to make?",opts:["Hunting spears","Stone tablets","Rope fibers","Fire"],ans:3,topic:"Ages of Man"},
+  {q:"In what location was copper first smelted before 3000 BC?",opts:["Egypt","India","China","Mesopotamia"],ans:3,topic:"Ages of Man"},
+  {q:"Cold working was used to harden which two materials?",opts:["Iron and Lead","Stone and Wood","Tin and Zinc","Copper and Bronze"],ans:3,topic:"Ages of Man"},
+  {q:"Which age saw the development of the chariot and cart?",opts:["Stone Age","Iron Age","Copper Age","Bronze Age"],ans:3,topic:"Ages of Man"},
+  {q:"Two records confirm that early man engaged in agriculture, shepherding and hunting — which are they?",opts:["Scientific and Fossil records","Geological and Anthropological records","Royal and Trade records","Historical records and Bible records"],ans:3,topic:"Ages of Man"},
+  {q:"Which age is described as the EARLIEST age of man?",opts:["Bronze Age","Iron Age","Copper Age","Stone Age"],ans:3,topic:"Ages of Man"},
+  {q:"What was man's primary goal in using rocks during the Stone Age?",opts:["To make ornaments","To create art","To build monuments","Defense, shelter and constructions"],ans:3,topic:"Ages of Man"},
+
+  // ANCIENT CIVILIZATIONS
+  {q:"Egyptians wrote mostly on which material?",opts:["Clay tablets","Stone slabs","Animal skin","Papyrus"],ans:3,topic:"Ancient Civilizations"},
+  {q:"Which ancient civilization originated a decimal and algebraic system?",opts:["Egyptians","Greeks","Romans","Sumerians"],ans:3,topic:"Ancient Civilizations"},
+  {q:"What tool is used for weighing gold?",opts:["Scales","Balance","Weights","Jewelers"],ans:3,topic:"Ancient Civilizations"},
+  {q:"What material was used in making statues and verses in ancient times?",opts:["Bronze","Clay","Wood","Stones"],ans:3,topic:"Ancient Civilizations"},
+  {q:"What structures were built with stones for climbing and building high walls?",opts:["Scaffolding","Ladders","Pulleys","Ramps"],ans:3,topic:"Ancient Civilizations"},
+  {q:"Plywood was invented in which ancient civilization?",opts:["Mesopotamia","Greece","Rome","Egypt"],ans:3,topic:"Ancient Civilizations"},
+  {q:"Veneering was practiced at about which year?",opts:["1000 BC","800 BC","1500 BC","1200 BC"],ans:3,topic:"Ancient Civilizations"},
+  {q:"One of the simple machines developed during the Greek period was?",opts:["The Water Wheel","The Pulley System","The Lever","The One-Wheeled Barrow"],ans:3,topic:"Ancient Civilizations"},
+  {q:"What material was used for architectural construction and bridges during the Roman civilization?",opts:["Stone","Bronze","Brick","Wood"],ans:3,topic:"Ancient Civilizations"},
+  {q:"Bronze was made by melting powdered zinc ore with copper and?",opts:["Iron","Lead","Tin","Charcoal"],ans:3,topic:"Ancient Civilizations"},
+  {q:"The Roman use of brass was known as?",opts:["Smelting","Alloying","Casting","Coinage"],ans:3,topic:"Ancient Civilizations"},
+  {q:"Lead was used as sheet metal for roofing, making pipes and for?",opts:["Making weapons","Jewelry","Flooring tiles","Lining water tanks"],ans:3,topic:"Ancient Civilizations"},
+  {q:"Lead is used as which type of wire?",opts:["Conductor wire","Electrical wire","Steel wire","Solder wire"],ans:3,topic:"Ancient Civilizations"},
+  {q:"Which civilization is credited with originating the algebraic number system?",opts:["Egyptians","Romans","Greeks","Sumerians"],ans:3,topic:"Ancient Civilizations"},
+  {q:"In ancient Egypt, ramps were used primarily for?",opts:["Creating canals","Building ships","Mining operations","Climbing and building high walls and story buildings"],ans:3,topic:"Ancient Civilizations"},
+  {q:"The use of brass as coinage was a practice of which civilization?",opts:["Greek","Egyptian","Mesopotamian","Roman"],ans:3,topic:"Ancient Civilizations"},
+  {q:"Which ancient writing material was produced by the Egyptians?",opts:["Parchment","Vellum","Clay tablets","Papyrus"],ans:3,topic:"Ancient Civilizations"},
+  {q:"In which country was plywood first invented?",opts:["Mesopotamia","Greece","Rome","Egypt"],ans:3,topic:"Ancient Civilizations"},
+  {q:"In what approximate year was veneering first practiced?",opts:["1000 BC","500 BC","1500 BC","1200 BC"],ans:3,topic:"Ancient Civilizations"},
+  {q:"The ancient Romans notably used which material for famous architectural constructions?",opts:["Stone","Bronze","Iron","Wood"],ans:3,topic:"Ancient Civilizations"},
+
+  // NIGERIAN ENGINEERING
+  {q:"What is the full meaning of PWD?",opts:["Public Welfare Division","Public Works Directorate","Public Water Distribution","Public Works Department"],ans:3,topic:"Nigerian Engineering"},
+  {q:"PWD comprises which 3 sections?",opts:["Civil, Mining, Chemical","Structural, Mechanical, Electrical","Civil, Mechanical, Electrical","Civil, Electronic, Chemical"],ans:2,topic:"Nigerian Engineering"},
+  {q:"NCSIR stands for?",opts:["National Council for Scientific Research","Nigerian Centre for Science and Industrial Research","National Commission for Science Innovation and Research","Nigerian Council for Scientific and Industrial Research"],ans:3,topic:"Nigerian Engineering"},
+  {q:"NCSIR was established in which year?",opts:["1960","1970","1964","1966"],ans:3,topic:"Nigerian Engineering"},
+  {q:"IITA stands for?",opts:["Institute of International Tropical Agriculture","International Institute of Tropical Analysis","Industrial Institute for Tropical Agriculture","International Institute of Tropical Agriculture"],ans:3,topic:"Nigerian Engineering"},
+  {q:"IITA was established in which year?",opts:["1965","1970","1972","1967"],ans:3,topic:"Nigerian Engineering"},
+  {q:"Kaduna Polytechnic was created in which year?",opts:["1965","1970","1972","1968"],ans:3,topic:"Nigerian Engineering"},
+  {q:"Yaba College of Technology was created in which year?",opts:["1967","1971","1965","1969"],ans:3,topic:"Nigerian Engineering"},
+  {q:"NCST stands for?",opts:["Nigerian Centre for Science and Technology","National Council for Science and Trade","National Commission for Science and Technology","New Council for Science and Technology"],ans:3,topic:"Nigerian Engineering"},
+  {q:"NSDA stands for?",opts:["National Steel Development Association","Nigerian Standard Development Authority","National Steel and Development Agency","Nigerian Steel Development Authority"],ans:3,topic:"Nigerian Engineering"},
+  {q:"NSDA was decreed in which year?",opts:["1969","1973","1975","1971"],ans:3,topic:"Nigerian Engineering"},
+  {q:"ITF stands for?",opts:["Industrial Technology Fund","International Training Fund","Industrial Technical Foundation","Industrial Training Fund"],ans:3,topic:"Nigerian Engineering"},
+  {q:"ITF was created in which year?",opts:["1969","1973","1975","1971"],ans:3,topic:"Nigerian Engineering"},
+  {q:"Which organization trained Nigerians in engineering in 1973?",opts:["NSTDA","COREN","RMRDC","Petroleum Technology Development Fund"],ans:3,topic:"Nigerian Engineering"},
+  {q:"NSTDA stands for?",opts:["National Science and Technology Development Authority","Nigerian Science and Technical Development Agency","National Standard and Technology Development Agency","Nigeria Science and Technology Development Agency"],ans:3,topic:"Nigerian Engineering"},
+  {q:"NSTDA was created in which year?",opts:["1975","1980","1983","1977"],ans:3,topic:"Nigerian Engineering"},
+  {q:"RMRDC stands for?",opts:["Resource Management Research and Development Centre","Raw Minerals Research and Development Corporation","Resource Materials Research and Development Council","Raw Materials Research and Development Council"],ans:3,topic:"Nigerian Engineering"},
+  {q:"RMRDC was created in which year?",opts:["1990","1985","1986","1988"],ans:3,topic:"Nigerian Engineering"},
+  {q:"What was introduced into Nigeria with the colonial administration?",opts:["Technology practice","Medical practice","Legal practice","Engineering Practice"],ans:3,topic:"Nigerian Engineering"},
+  {q:"The first professionally qualified engineers were locally produced in Nigeria during which decade?",opts:["1940s","1950s","1970s","1960s"],ans:3,topic:"Nigerian Engineering"},
+  {q:"COREN stands for?",opts:["Council for Regulation of Engineering in Nigeria","Commission for Registration of Engineers in Nigeria","Council for Regulation of Engineers in Nigeria","Council for the Regulation of Engineering in Nigeria"],ans:3,topic:"Nigerian Engineering"},
+  {q:"COREN was set up by law in which year?",opts:["1965","1972","1968","1970"],ans:3,topic:"Nigerian Engineering"},
+  {q:"NSE stands for?",opts:["Nigeria Standard of Engineering","National Society of Engineers","Nigerian Society of Engineers","None of the above"],ans:2,topic:"Nigerian Engineering"},
+  {q:"The NSE was founded in which year?",opts:["1960","1955","1962","1958"],ans:3,topic:"Nigerian Engineering"},
+  {q:"The NSE is described as which type of organization?",opts:["International representative of Nigerian engineers","The regulatory body for engineers","The licensing body for engineers","The national umbrella organization for the engineering profession"],ans:3,topic:"Nigerian Engineering"},
+  {q:"How many grades of membership does the NSE have?",opts:["5","6","8","7"],ans:3,topic:"Nigerian Engineering"},
+  {q:"Which of these is NOT a grade of NSE membership?",opts:["Fellow","Corporate Member","Associate","Director"],ans:3,topic:"Nigerian Engineering"},
+  {q:"The highest policy-making body in the NSE is the?",opts:["Executive Committee","Board of Trustees","General Assembly","Council"],ans:3,topic:"Nigerian Engineering"},
+  {q:"Who is the head of the NSE Council?",opts:["Secretary-General","Chairman","Director-General","President"],ans:3,topic:"Nigerian Engineering"},
+  {q:"Nigeria relies on Codes and Standards from which two international organizations?",opts:["ISO and ASTM","DIN and JIS","COREN and NSE","British Standard Institute and American National Standard Institute"],ans:3,topic:"Nigerian Engineering"},
+  {q:"Which body handles registration of engineers in Nigeria?",opts:["NSE","NCSIR","ITF","COREN"],ans:3,topic:"Nigerian Engineering"},
+  {q:"Which body is the national umbrella organization for engineering in Nigeria?",opts:["COREN","PWD","RMRDC","NSE"],ans:3,topic:"Nigerian Engineering"},
+  {q:"The Petroleum Technology Development Fund trained Nigerians in engineering in what year?",opts:["1970","1977","1966","1973"],ans:3,topic:"Nigerian Engineering"},
+  {q:"Which of these was established earliest?",opts:["ITF (1971)","COREN (1970)","NCSIR (1966)","NSE (1958)"],ans:3,topic:"Nigerian Engineering"},
+  {q:"Which of these was established LAST?",opts:["NSTDA (1977)","NSDA (1971)","ITF (1971)","RMRDC (1988)"],ans:3,topic:"Nigerian Engineering"},
+
+  // BRANCHES OF ENGINEERING
+  {q:"Agricultural Engineering is engineering theory and applications in?",opts:["Environmental science","Food processing","Soil science","Agriculture"],ans:3,topic:"Branches of Engineering"},
+  {q:"Which branch designs and constructs physical structures and infrastructures?",opts:["Mechanical Engineering","Environmental Engineering","Structural Engineering","Civil Engineering"],ans:3,topic:"Branches of Engineering"},
+  {q:"Which branch does research, design and development of electrical systems and electronic devices?",opts:["Mechatronics Engineering","Computer Engineering","Telecommunications Engineering","Electrical and Electronic Engineering"],ans:3,topic:"Branches of Engineering"},
+  {q:"Which branch researches, designs and develops physical or mechanical systems such as engines?",opts:["Civil Engineering","Mechatronics Engineering","Aerospace Engineering","Mechanical Engineering"],ans:3,topic:"Branches of Engineering"},
+  {q:"Which branch involves exploration, extraction and processing of raw materials from the earth?",opts:["Chemical Engineering","Materials Engineering","Petroleum Engineering","Mining Engineering"],ans:3,topic:"Branches of Engineering"},
+  {q:"Material Engineering involves research, design, development and use of materials such as ceramics and?",opts:["Polymers","Alloys","Composites","Nanoparticles"],ans:3,topic:"Branches of Engineering"},
+  {q:"A bridge and a highway are primarily the work of which branch?",opts:["Mechanical Engineering","Mining Engineering","Environmental Engineering","Civil Engineering"],ans:3,topic:"Branches of Engineering"},
+  {q:"An engineer designing a microprocessor chip works in which branch?",opts:["Civil Engineering","Mining Engineering","Mechanical Engineering","Electrical and Electronic Engineering"],ans:3,topic:"Branches of Engineering"},
+  {q:"An engineer developing new ceramic insulation materials works in which branch?",opts:["Chemical Engineering","Civil Engineering","Mining Engineering","Material Engineering"],ans:3,topic:"Branches of Engineering"},
+  {q:"Irrigation systems and farm machinery design falls under which branch?",opts:["Civil Engineering","Environmental Engineering","Mining Engineering","Agricultural Engineering"],ans:3,topic:"Branches of Engineering"},
+  {q:"Extraction of gold ore from the earth would primarily involve which branch?",opts:["Chemical Engineering","Petroleum Engineering","Materials Engineering","Mining Engineering"],ans:3,topic:"Branches of Engineering"},
+  {q:"Designing an internal combustion engine is primarily the work of which engineer?",opts:["Civil Engineer","Mining Engineer","Electrical Engineer","Mechanical Engineer"],ans:3,topic:"Branches of Engineering"},
+  {q:"Nanoparticles and ceramics are materials associated with which branch?",opts:["Civil Engineering","Mechanical Engineering","Mining Engineering","Material Engineering"],ans:3,topic:"Branches of Engineering"},
+  {q:"Which branch combines natural sciences with agricultural applications?",opts:["Environmental Engineering","Food Engineering","Mining Engineering","Agricultural Engineering"],ans:3,topic:"Branches of Engineering"},
+  {q:"Which branch is primarily responsible for exploring and processing raw earth materials?",opts:["Chemical Engineering","Materials Engineering","Petroleum Engineering","Mining Engineering"],ans:3,topic:"Branches of Engineering"},
+
+  // ENGINEERING PROFESSIONS
+  {q:"Graduates of Baccalaureate level Engineering Technology (BET) programs are called?",opts:["Engineering Scientists","Engineering Technicians","Vocational Technicians","Engineering Technologists"],ans:3,topic:"Engineering Professions"},
+  {q:"Graduates of associate degree (AS) programs in engineering technology are called?",opts:["Engineering Technologists","Engineering Scientists","Vocational Technicians","Engineering Technicians"],ans:3,topic:"Engineering Professions"},
+  {q:"Engineering Scientists are the most theoretical. What degree have they earned?",opts:["Master's in engineering","Bachelor's in engineering","Professional certification","Doctorate in engineering"],ans:3,topic:"Engineering Professions"},
+  {q:"Most Baccalaureate level Engineering Technology programs are accredited by?",opts:["COREN/NSE","ISO/IEC","NAAB/NCARB","EAC/ABET"],ans:3,topic:"Engineering Professions"},
+  {q:"Engineering Technologists apply engineering and scientific knowledge to do what?",opts:["Design new products independently","Replace engineers in industry","Conduct pure research","Support engineering activities"],ans:3,topic:"Engineering Professions"},
+  {q:"Engineering Technicians primarily assemble and test component parts designed by?",opts:["Themselves","Engineering Scientists","Research teams","Others"],ans:3,topic:"Engineering Professions"},
+  {q:"Vocational Technicians receive skill training with less emphasis on?",opts:["Practical skills","Technical training","Vocational knowledge","Scientific or mathematical principles"],ans:3,topic:"Engineering Professions"},
+  {q:"A Profession is an occupation providing a specialized service in a defined area using?",opts:["General knowledge","Technical skills","Trade secrets","Intellectual skill based on established body of knowledge"],ans:3,topic:"Engineering Professions"},
+  {q:"Engineers are categorized into how many types?",opts:["3","4","5","2"],ans:3,topic:"Engineering Professions"},
+  {q:"What are the two categories of engineers?",opts:["Designers and Builders","Scientists and Technologists","Theorists and Practitioners","Researchers and General Engineers"],ans:3,topic:"Engineering Professions"},
+  {q:"The importance of engineering is related to how many key areas?",opts:["4","5","7","6"],ans:3,topic:"Engineering Professions"},
+  {q:"Which of these is NOT one of the 6 key importance areas of engineering?",opts:["Agricultural","Banking","Automobile","Manufacturing"],ans:3,topic:"Engineering Professions"},
+  {q:"EAC/ABET is the accrediting body for which type of program?",opts:["Medical degree programs","Law degree programs","Business degree programs","Baccalaureate Engineering Technology programs"],ans:3,topic:"Engineering Professions"},
+  {q:"Which engineering professional is most focused on theory and research?",opts:["Engineering Technician","Vocational Technician","Engineering Technologist","Engineering Scientist"],ans:3,topic:"Engineering Professions"},
+  {q:"Which professional primarily assembles and tests systems designed by others?",opts:["Engineering Scientist","Vocational Technician","Engineering Technologist","Engineering Technician"],ans:3,topic:"Engineering Professions"},
+  {q:"The 6 key importance areas of engineering include Agriculture, Banking, Automobile, Education, Marketing and?",opts:["Construction","Manufacturing","Military","Health sector"],ans:3,topic:"Engineering Professions"},
+  {q:"A Vocational Technician differs from an Engineering Technician in that they have?",opts:["A PhD","More math training","COREN license","Less emphasis on scientific/mathematical principles"],ans:3,topic:"Engineering Professions"},
+  {q:"An associate degree (AS) in Engineering Technology leads to the title of?",opts:["Engineering Scientist","Engineering Technologist","Vocational Technician","Engineering Technician"],ans:3,topic:"Engineering Professions"},
+  {q:"Engineering Technologists are trained primarily to do what?",opts:["Conduct doctoral research","Operate heavy machinery","Train vocational students","Apply engineering knowledge to support engineering activities"],ans:3,topic:"Engineering Professions"},
+  {q:"Which engineering category is accredited by EAC/ABET at the Baccalaureate level?",opts:["Engineering Science","Vocational Training","Engineering Technician (AS)","Engineering Technology (BET)"],ans:3,topic:"Engineering Professions"},
+
+  // DEFINITIONS
+  {q:"Science fabricates and arranges information as testable clarifications and expectations about the?",opts:["Physical world","Human environment","Natural phenomena","Universe"],ans:3,topic:"Definitions"},
+  {q:"Engineering is the use of arithmetic, logical, financial, social and viable learning with a specific?",opts:["Purpose","Outcome","Objective","Goal"],ans:3,topic:"Definitions"},
+  {q:"Technology is the accumulation of abilities, routines and procedures utilized in the creation of?",opts:["Ideas","Knowledge","Inventions","Product"],ans:3,topic:"Definitions"},
+  {q:"Engineering is best defined as?",opts:["A branch of mathematics","A form of art","The study of nature","The application of science"],ans:3,topic:"Definitions"},
+  {q:"Which term refers to 'the collection of man-made or induced physical objects in a particular area'?",opts:["Engineering Technology","Engineering Science","Engineering Ethics","Engineering Profession"],ans:3,topic:"Definitions"},
+  {q:"A 'Profession' involves providing what kind of service?",opts:["General services","Technical support","Research findings","A specialized service in a defined area"],ans:3,topic:"Definitions"},
+  {q:"Which concept describes a systematic approach to observing phenomena, developing hypotheses and theories?",opts:["Engineering","Technology","Ethics","Science"],ans:3,topic:"Definitions"},
+  {q:"The Latin word 'Scientia' translates most closely to?",opts:["Engineering","Technology","Knowledge/Science","Invention"],ans:2,topic:"Definitions"},
+  {q:"An occupation where a person provides specialized service using an established body of knowledge is called?",opts:["Technology","Vocation","Science","Profession"],ans:3,topic:"Definitions"},
+  {q:"The accumulation of abilities, routines and procedures used in creating products is called?",opts:["Science","Engineering","Profession","Technology"],ans:3,topic:"Definitions"},
+  {q:"Which best describes the relationship between Science and Engineering?",opts:["They are the same thing","Engineering precedes Science","Engineering is the application of Science","Science is the application of Engineering"],ans:2,topic:"Definitions"},
+  {q:"What term describes the use of arithmetic, logical, financial and social learning toward a specific goal?",opts:["Science","Technology","Profession","Engineering"],ans:3,topic:"Definitions"},
+  {q:"Human beings being partly defined as tool designers relates most to which field?",opts:["Biology","Art","Ethics","Engineering"],ans:3,topic:"Definitions"},
+  {q:"Which definition best fits 'Technology'?",opts:["Application of scientific knowledge","Systematic observation and hypothesis-testing","Accumulation of abilities, routines and procedures in product creation","Use of mathematical and logical principles"],ans:2,topic:"Definitions"},
+  {q:"Science is defined as a systematic approach to which of these processes?",opts:["Trade and commerce","Design and manufacturing","Observation, hypothesis, experimentation and theory","Art and culture"], ans:2, topic:"Definitions"},
+
+  // RISK MANAGEMENT
+  {q:"The Risk Management Approach determines the process, techniques, tools and?",opts:["Project timeline and milestones","Budget allocation and resources","Research methodology","Team roles and responsibilities for a specific project"],ans:3,topic:"Risk Management"},
+  {q:"The Risk Management Plan describes how risk management will be _____ on the project.",opts:["Evaluated and reported","Monitored and controlled","Identified and assessed","Structured and performed"],ans:3,topic:"Risk Management"},
+  {q:"The Risk Management Tool supports implementation of risk management in?",opts:["Business programs","Research programs","Training programs","System engineering programs"],ans:3,topic:"Risk Management"},
+  {q:"What is the primary function of the Risk Management Approach?",opts:["Create the project budget","Assign project timelines","Select project team members","Determine process, techniques, tools, and roles for a specific project"],ans:3,topic:"Risk Management"},
+  {q:"What is the primary function of the Risk Management Plan?",opts:["Identify all project risks","Allocate project resources","Schedule project milestones","Describe how risk management will be structured and performed"],ans:3,topic:"Risk Management"},
+  {q:"What is the primary function of the Risk Management Tool?",opts:["Create risk databases","Train team members","Generate risk reports","Support implementation and execution of risk management in system engineering"],ans:3,topic:"Risk Management"},
+  {q:"Which risk management element deals with 'how' risk management will be carried out?",opts:["Risk Management Tool","Risk Management Approach","Risk Register","Risk Management Plan"],ans:3,topic:"Risk Management"},
+  {q:"Which risk management element determines what tools and techniques will be used?",opts:["Risk Management Plan","Risk Management Tool","Risk Register","Risk Management Approach"],ans:3,topic:"Risk Management"},
+  {q:"Which risk management element is specifically used in system engineering programs?",opts:["Risk Management Approach","Risk Management Plan","Risk Register","Risk Management Tool"],ans:3,topic:"Risk Management"},
+  {q:"In MNE 201, how many risk management elements are described?",opts:["2","4","5","3"],ans:3,topic:"Risk Management"},
+
+  // ENGINEERING ETHICS
+  {q:"Ethics is a system of moral principles by which human actions and proposals may be judged as?",opts:["Legal or illegal","Profitable or not","Efficient or inefficient","Good or right or wrong"],ans:3,topic:"Engineering Ethics"},
+  {q:"In Nigeria, engineering training relies on Codes and Standards from which two bodies?",opts:["ISO and ASTM","DIN and JIS","COREN and NSE","BSI and ANSI"],ans:3,topic:"Engineering Ethics"},
+  {q:"BSI stands for?",opts:["Bureau of Scientific Innovation","Board of Structural Inspection","British Standards Institution","Bureau of Standards and Inspection"],ans:2,topic:"Engineering Ethics"},
+  {q:"ANSI stands for?",opts:["African National Standards Institute","Association for National Standards and Innovation","Approved National Standards Inspection","American National Standards Institute"],ans:3,topic:"Engineering Ethics"},
+  {q:"Ethics in engineering refers to a system of what kind of principles?",opts:["Financial principles","Technical principles","Legal principles","Moral principles"],ans:3,topic:"Engineering Ethics"},
+  {q:"Engineering ethics guides the judgment of human actions. The standard applied is?",opts:["Legal or illegal","Efficient or inefficient","Profitable or not","Good or right or wrong"],ans:3,topic:"Engineering Ethics"},
+  {q:"In Nigeria, both BSI and ANSI standards are used for which two purposes?",opts:["Manufacturing and Export","Research and Development","Design and Construction","Training and Professional practice"],ans:3,topic:"Engineering Ethics"},
+  {q:"Which international body's standards does Nigeria rely on alongside ANSI?",opts:["ISO","DIN","JIS","BSI (British Standard Institute)"],ans:3,topic:"Engineering Ethics"},
+  {q:"Which best describes what Engineering Ethics does?",opts:["Sets salary scales for engineers","Provides engineering design guidelines","Lists engineering branches","Provides moral principles to judge engineers' actions as right or wrong"],ans:3,topic:"Engineering Ethics"},
+  {q:"Which combination provides the Codes and Standards for engineering practice in Nigeria?",opts:["ISO and ASTM","DIN and JIS","COREN and NSE","BSI and ANSI"],ans:3,topic:"Engineering Ethics"},
+  {q:"Ethics applies moral principles to judge proposals as 'good or right or wrong'. This relates to?",opts:["Engineering Technology","Engineering Science","Engineering Management","Engineering Professional Conduct"],ans:3,topic:"Engineering Ethics"},
+  {q:"The term 'Ethics' in engineering is best understood as?",opts:["A set of financial regulations","A system of technical guidelines","A legal framework","A system of moral principles judging actions as right or wrong"],ans:3,topic:"Engineering Ethics"},
+];
+
+document.getElementById('total-count').textContent = BANK.length;
+
+// ── STATE ──
+let S = { mode:'exam', topicFilter:'all', questions:[], current:0, answers:{}, score:0, timer:null, timeLeft:60 };
+
+function selectMode(m){
+  S.mode = m;
+  ['exam','practice','quick','review'].forEach(x => document.getElementById('mode-'+x).classList.toggle('selected', x===m));
+}
+
+function shuffle(arr){ const a=[...arr]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+
+function startQuiz(){
+  S.answers={}; S.score=0; S.current=0;
+  S.topicFilter = document.getElementById('topic-filter').value;
+  let pool = BANK.filter(q => S.topicFilter==='all' || q.topic===S.topicFilter);
+  pool = shuffle(pool);
+  if(S.mode==='quick') pool = pool.slice(0,40);
+  S.questions = pool;
+  showScreen('quiz');
+  renderQ();
+}
+
+function renderQ(){
+  const q = S.questions[S.current];
+  const total = S.questions.length;
+  const pct = ((S.current+1)/total*100).toFixed(1);
+
+  document.getElementById('q-counter').textContent = `${S.current+1} / ${total}`;
+  document.getElementById('q-topic').textContent = q.topic;
+  document.getElementById('q-text').textContent = q.q;
+  document.getElementById('prog-bar').style.width = pct+'%';
+  document.getElementById('score-live').textContent = S.score;
+
+  const labels = ['A','B','C','D'];
+  const optsEl = document.getElementById('opts');
+  optsEl.innerHTML = '';
+
+  const shuffledOpts = shuffle(q.opts.map((o,i)=>({text:o, isCorrect:i===q.ans})));
+  const saved = S.answers[S.current];
+
+  shuffledOpts.forEach((o,i)=>{
+    const btn = document.createElement('button');
+    btn.className = 'opt';
+    btn.dataset.correct = o.isCorrect;
+    btn.innerHTML = `<span class="opt-lbl">${labels[i]}</span><span>${o.text}</span>`;
+
+    if(saved!==undefined){
+      btn.disabled=true;
+      if(o.isCorrect) btn.classList.add('correct');
+      else if(saved.text===o.text) btn.classList.add('wrong');
+    }
+
+    if(S.mode==='review'){
+      if(o.isCorrect) btn.classList.add('correct');
+      btn.disabled=true;
+    } else if(saved===undefined){
+      btn.onclick = ()=> selectAns(btn, o, shuffledOpts);
+    }
+
+    optsEl.appendChild(btn);
+  });
+
+  const fb = document.getElementById('feedback');
+  fb.className = 'feedback';
+
+  if(saved!==undefined && S.mode!=='review'){
+    if(saved.correct){
+      fb.className='feedback show fb-correct';
+      fb.textContent='✓ Correct!';
+    } else if(saved.skipped){
+      fb.className='feedback show fb-skip';
+      const ct = shuffledOpts.find(o=>o.isCorrect).text;
+      fb.textContent=`— Skipped. Correct answer: ${ct}`;
+    } else {
+      fb.className='feedback show fb-wrong';
+      const ct = shuffledOpts.find(o=>o.isCorrect).text;
+      fb.textContent=`✗ Wrong. Correct answer: ${ct}`;
+    }
+  }
+
+  document.getElementById('prev-btn').disabled = S.current===0;
+  document.getElementById('next-btn').textContent = S.current===total-1 ? 'Finish ✓' : 'Next →';
+  document.getElementById('skip-btn').style.display = (saved!==undefined || S.mode==='review') ? 'none' : 'inline-block';
+
+  clearInterval(S.timer);
+  if((S.mode==='exam'||S.mode==='quick') && saved===undefined && S.mode!=='review'){
+    startTimer();
+  } else {
+    document.getElementById('timer-badge').textContent = S.mode==='practice'||S.mode==='review' ? '∞' : '—';
+    document.getElementById('timer-badge').className = 'timer-badge';
+  }
+}
+
+function startTimer(){
+  S.timeLeft=60; updateTimer();
+  S.timer = setInterval(()=>{ S.timeLeft--; updateTimer(); if(S.timeLeft<=0){clearInterval(S.timer);autoSkip();} },1000);
+}
+
+function updateTimer(){
+  const s=S.timeLeft;
+  document.getElementById('timer-badge').textContent = `${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;
+  document.getElementById('timer-badge').className = s<=10 ? 'timer-badge urgent' : 'timer-badge';
+}
+
+function autoSkip(){ if(S.answers[S.current]===undefined){ S.answers[S.current]={text:null,correct:false,skipped:true}; renderQ(); } }
+
+function selectAns(btn, chosen, allOpts){
+  clearInterval(S.timer);
+  const isCorrect = chosen.isCorrect;
+  document.querySelectorAll('.opt').forEach(b=>{ b.disabled=true; if(b.dataset.correct==='true') b.classList.add('correct'); });
+  if(!isCorrect) btn.classList.add('wrong');
+  if(isCorrect) S.score++;
+  S.answers[S.current]={text:chosen.text, correct:isCorrect};
+  const fb=document.getElementById('feedback');
+  document.getElementById('skip-btn').style.display='none';
+  if(isCorrect){ fb.className='feedback show fb-correct'; fb.textContent='✓ Correct!'; }
+  else { fb.className='feedback show fb-wrong'; fb.textContent=`✗ Wrong. Correct answer: ${allOpts.find(o=>o.isCorrect).text}`; }
+  document.getElementById('score-live').textContent=S.score;
+}
+
+function skipQ(){ clearInterval(S.timer); S.answers[S.current]={text:null,correct:false,skipped:true}; renderQ(); }
+
+function navigate(dir){
+  const total=S.questions.length;
+  const n=S.current+dir;
+  if(n>=total){showResults();return;}
+  if(n<0) return;
+  S.current=n; renderQ();
+}
+
+function showResults(){
+  clearInterval(S.timer); showScreen('results');
+  const total=S.questions.length;
+  let correct=0,wrong=0,skipped=0;
+  S.questions.forEach((_,i)=>{ const a=S.answers[i]; if(!a||a.skipped)skipped++; else if(a.correct)correct++; else wrong++; });
+  const pct=Math.round((correct/total)*100);
+  document.getElementById('result-score').textContent=pct+'%';
+  document.getElementById('r-correct').textContent=correct;
+  document.getElementById('r-wrong').textContent=wrong;
+  document.getElementById('r-skip').textContent=skipped;
+
+  let lbl,emoji;
+  if(pct>=70){lbl='Excellent — You are exam ready!';emoji='🏆';}
+  else if(pct>=60){lbl='Good effort — Keep revising!';emoji='👍';}
+  else if(pct>=50){lbl='Average — More practice needed.';emoji='📚';}
+  else{lbl='Below average — Revise thoroughly.';emoji='💡';}
+  document.getElementById('result-label').textContent=lbl;
+  document.getElementById('result-emoji').textContent=emoji;
+
+  const rl=document.getElementById('review-list');
+  rl.innerHTML='';
+  S.questions.forEach((q,i)=>{
+    const a=S.answers[i];
+    const isSkip=!a||a.skipped;
+    const isWrong=a&&!a.skipped&&!a.correct;
+    if(!isSkip&&!isWrong) return;
+    const div=document.createElement('div');
+    div.className=`rev-item ${isSkip?'ri-skip':'ri-wrong'}`;
+    div.innerHTML=`<div class="rev-q">Q${i+1}. ${q.q}</div><div class="rev-ans">✓ ${q.opts[q.ans]}</div>${isWrong?`<div class="rev-yours">✗ You chose: ${a.text}</div>`:'<div style="color:var(--muted);font-size:0.65rem;">— Skipped</div>'}`;
+    rl.appendChild(div);
+  });
+  if(rl.children.length===0) rl.innerHTML='<div style="color:var(--correct);font-size:0.85rem;text-align:center;padding:1.5rem;">🎉 Perfect! No errors.</div>';
+}
+
+function showScreen(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo(0,0); }
+function restartQuiz(){ startQuiz(); }
+function goHome(){ clearInterval(S.timer); showScreen('home'); }
+</script>
+</body>
+</html>
